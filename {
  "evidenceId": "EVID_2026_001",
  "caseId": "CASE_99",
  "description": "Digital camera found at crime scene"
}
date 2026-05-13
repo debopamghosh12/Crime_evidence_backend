@@ -1,0 +1,11 @@
+HTTP/1.1 500 Internal Server Error
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Security-Policy: default-src 'none'
+X-Content-Type-Options: nosniff
+Content-Type: text/html; charset=utf-8
+Content-Length: 1292
+Date: Tue, 24 Feb 2026 17:46:17 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
