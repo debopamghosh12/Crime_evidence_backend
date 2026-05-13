@@ -1,0 +1,115 @@
+{
+  "info": {
+    "name": "Forensic API - Evidence Management",
+    "_postman_id": "evidence-management-collection",
+    "description": "Collection to test forensic evidence API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Create Evidence",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"evidenceId\": \"EVID_2026_001\",\n  \"caseId\": \"CASE_99\",\n  \"description\": \"Digital camera found at crime scene\",\n  \"officerName\": \"Officer John Smith\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/evidence", "host": ["{{baseUrl}}"], "path": ["api","evidence"] }
+      }
+    },
+    {
+      "name": "Bulk Create Evidence",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"evidenceList\": [\n    {\n      \"evidenceId\": \"EVID_2026_002\",\n      \"caseId\": \"CASE_99\",\n      \"description\": \"Photo of scene\",\n      \"officerName\": \"Officer Jane\"\n    },\n    {\n      \"evidenceId\": \"EVID_2026_003\",\n      \"caseId\": \"CASE_99\",\n      \"description\": \"USB drive\",\n      \"officerName\": \"Officer Jane\"\n    }\n  ]\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/evidence/bulk", "host": ["{{baseUrl}}"], "path": ["api","evidence","bulk"] }
+      }
+    },
+    {
+      "name": "Get All Evidence (with query)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/evidence?caseId=CASE_99&page=1&limit=10",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","evidence"],
+          "query": [
+            { "key": "caseId", "value": "CASE_99" },
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "10" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Evidence By ID",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/evidence/EVID_2026_001", "host": ["{{baseUrl}}"], "path": ["api","evidence","EVID_2026_001"] }
+      }
+    },
+    {
+      "name": "Update Evidence Metadata",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"caseId\": \"CASE_100\",\n  \"description\": \"Updated description\"\n}" },
+        "url": { "raw": "{{baseUrl}}/api/evidence/EVID_2026_001", "host": ["{{baseUrl}}"], "path": ["api","evidence","EVID_2026_001"] }
+      }
+    },
+    {
+      "name": "Update Evidence Status",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"newStatus\": \"PROCESSING\",\n  \"officerName\": \"Officer Smith\",\n  \"notes\": \"Sent to lab\"\n}" },
+        "url": { "raw": "{{baseUrl}}/api/evidence/EVID_2026_001/status", "host": ["{{baseUrl}}"], "path": ["api","evidence","EVID_2026_001","status"] }
+      }
+    },
+    {
+      "name": "Get Chain of Custody",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/evidence/EVID_2026_001/chain-of-custody", "host": ["{{baseUrl}}"], "path": ["api","evidence","EVID_2026_001","chain-of-custody"] }
+      }
+    },
+    {
+      "name": "Add Chain of Custody Entry",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"fromOfficer\": \"Officer Smith\",\n  \"toOfficer\": \"Officer Jones\",\n  \"notes\": \"Transferred to evidence room\"\n}" },
+        "url": { "raw": "{{baseUrl}}/api/evidence/EVID_2026_001/chain-of-custody", "host": ["{{baseUrl}}"], "path": ["api","evidence","EVID_2026_001","chain-of-custody"] }
+      }
+    },
+    {
+      "name": "Bulk Delete Evidence",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"evidenceIds\": [\"EVID_2026_002\", \"EVID_2026_003\"]\n}" },
+        "url": { "raw": "{{baseUrl}}/api/evidence/bulk", "host": ["{{baseUrl}}"], "path": ["api","evidence","bulk"] }
+      }
+    },
+    {
+      "name": "Delete Evidence By ID",
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "{{baseUrl}}/api/evidence/EVID_2026_001", "host": ["{{baseUrl}}"], "path": ["api","evidence","EVID_2026_001"] }
+      }
+    }
+  ]
+}
